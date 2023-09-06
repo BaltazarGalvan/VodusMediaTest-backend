@@ -38,7 +38,7 @@ app.post("/", (req, res) => {
   const data = req.body;
   dataArray.push(data);
   console.log(dataArray);
-  res.send("esta es la respuesta del post");
+  res.send(dataArray);
 });
 
 app.listen(port, () => {
