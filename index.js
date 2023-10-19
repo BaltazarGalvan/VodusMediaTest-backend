@@ -16,6 +16,7 @@ const dataArray = [];
 
 app.get("/", (req, res) => {
   console.log(req.query.user);
+  dataArray.forEach((x) => console.log(x));
   const dataFiltered = dataArray.filter(
     (data) => data.data.userIdentifier === req.query.user
   );
