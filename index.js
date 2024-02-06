@@ -16,6 +16,7 @@ const dataArray = [];
 
 app.get("/", (req, res) => {
   console.log(req.query.user);
+  
   /*dataArray.forEach((x) => console.log(x));
   const dataFiltered = dataArray.filter(
     (data) => data.data.userIdentifier === req.query.user
@@ -37,7 +38,9 @@ app.get("/", (req, res) => {
 });
 
 app.post("/", (req, res) => {
-  const data = req.body;
+  const user1= req.body.user;
+  const otro1 = req.body.otro;
+  const data ={user:user1, otro:otro1}
   dataArray.push(data);
   console.log(dataArray);
   res.send(dataArray);
