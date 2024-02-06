@@ -32,9 +32,9 @@ app.get("/", (req, res) => {
       },
     };
   });
-  const dataToReturn = { entry: videoArray };
-  res.send(dataToReturn);*/
-  res.send(req.query);
+  const dataToReturn = { entry: videoArray };*/
+  res.send(dataArray);*/
+  /*res.send(req.query);
 });
 
 app.post("/", (req, res) => {  
