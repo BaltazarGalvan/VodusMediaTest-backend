@@ -39,8 +39,8 @@ app.get("/", (req, res) => {
 
 app.post("/", (req, res) => {
   const user1= req.body;
-  console.log(user1)
-  const data ={user:user1, otro:otro1}
+  console.log(user1);
+  const data ={user:user1};
   dataArray.push(data);
   console.log(dataArray);
   res.send(dataArray);
