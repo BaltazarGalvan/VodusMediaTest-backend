@@ -38,7 +38,7 @@ app.get("/", (req, res) => {
 });
 
 app.post("/", (req, res) => {  
-  const data ={user:req.body};
+  const data =req.body;
   dataArray.push(data);
   console.log(dataArray);
   res.send(dataArray);
