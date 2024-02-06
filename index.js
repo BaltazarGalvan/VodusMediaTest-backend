@@ -15,9 +15,9 @@ const port = process.env.PORT || 5000;
 const dataArray = [];
 
 app.get("/", (req, res) => {
-  console.log(req.query.user);
+  console.log(req.query);
   
-  dataArray.forEach((x) => console.log(x));
+ /* dataArray.forEach((x) => console.log(x));
   const dataFiltered = dataArray.filter(
     (data) => data.data.userIdentifier === req.query.user
   );
@@ -33,8 +33,8 @@ app.get("/", (req, res) => {
     };
   });
   const dataToReturn = { entry: videoArray };
-  res.send(dataToReturn);
-  /*res.send(req.query.user);*/
+  res.send(dataToReturn);*/
+  res.send(req.query);
 });
 
 app.post("/", (req, res) => {  
