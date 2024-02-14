@@ -15,7 +15,7 @@ const port = process.env.PORT || 5000;
 const dataArray = [];
 
 app.get("/", (req, res) => {
-  console.log(req.body);
+  console.log(req.body.user1);
   
  /* dataArray.forEach((x) => console.log(x));
   const dataFiltered = dataArray.filter(
