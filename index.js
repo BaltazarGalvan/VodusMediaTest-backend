@@ -16,7 +16,7 @@ const dataArray = [];
 
 app.get("/", (req, res) => {
   const dataRequested = req.query
-  console.log(dataRequested.ctx);
+  console.log(dataRequested);
   console.log(req.query);
   
  /* dataArray.forEach((x) => console.log(x));
