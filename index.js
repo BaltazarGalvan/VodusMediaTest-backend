@@ -40,8 +40,13 @@ app.get("/", (req, res) => {
 });
 
 app.post("/", (req, res) => {  
-  const data =req.body;
-  dataArray.push(data);
+  const dataReceived =req.body;
+  
+  if (dataReceived.data.status !== "VIDEO_STOPPED" || dataReceived.data.status !== "COMPLETED") {
+   return;
+  }
+  
+  dataArray.push(dataReceived);
   console.log(dataArray);
   res.send(dataArray);
 });
