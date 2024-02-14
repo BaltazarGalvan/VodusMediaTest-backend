@@ -17,6 +17,7 @@ const dataArray = [];
 app.get("/", (req, res) => {
   const dataRequested = req.query
   console.log(dataRequested.ctx);
+  console.log(dataRequested);
   
  /* dataArray.forEach((x) => console.log(x));
   const dataFiltered = dataArray.filter(
