@@ -24,7 +24,7 @@ app.get("/", (req, res) => {
   );
   const videoArray = dataFiltered.map((data) => {
     return {
-      id: data.id,
+      id: data.data.videoId,
       extensions: {
         resumeLastUpdate: data.time,
         resumeTime: data.data.secondsFromStart,
@@ -33,9 +33,10 @@ app.get("/", (req, res) => {
       },
     };
   });
-  const dataToReturn = { entry: videoArray };*/
+  const dataToReturn = { entry: videoArray };
+  res.send(dataToReturn);*/
   res.send(dataArray);
-  /*res.send(req.query);*/
+  
 });
 
 app.post("/", (req, res) => {  
