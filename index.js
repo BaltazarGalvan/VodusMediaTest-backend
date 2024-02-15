@@ -102,27 +102,9 @@ app.get("/", (req, res) => {
           return;
         }
         console.log("Dentro del done", retrievedRecords);
+        res.send({ entry: retrievedRecords });
       }
     );
-
-  /* dataArray.forEach((x) => console.log(x));
-  const dataFiltered = dataArray.filter(
-    (data) => data.data.userIdentifier === req.query.ctx
-  );
-  const videoArray = dataFiltered.map((data) => {
-    return {
-      id: data.data.videoId,
-      extensions: {
-        resumeLastUpdate: data.time,
-        resumeTime: data.data.secondsFromStart,
-        progress: data.data.progress,
-        resumeCompleted: false,
-      },
-    };
-  });
-  const dataToReturn = { entry: videoArray };
-  res.send(dataToReturn);*/
-  console.log("Fuera del done", retrievedRecords);
   res.send(retrievedRecords);
 });
 
