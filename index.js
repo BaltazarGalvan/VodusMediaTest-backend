@@ -59,15 +59,16 @@ app.get("/", (req, res) => {
     .eachPage(
       function page(records, fetchNextPage) {
         records.forEach(function (record) {
-          const dataRecordRetraieved = {
-            id: record.get("id"),
-            extensions: {
-              resumeLastUpdate: record.get("time"),
-              resumeTime: record.get("secondsFromStart"),
-              progress: record.get("progress"),
-              resumeCompleted: false,
-            },
-          };
+          const dataRecordRetraieved = getDataFromRecord(record);
+          // {
+          //   id: record.get("id"),
+          //   extensions: {
+          //     resumeLastUpdate: record.get("time"),
+          //     resumeTime: record.get("secondsFromStart"),
+          //     progress: record.get("progress"),
+          //     resumeCompleted: false,
+          //   },
+          // };
           retrievedRecords.push(dataRecordRetraieved);
         });
         fetchNextPage();
@@ -82,6 +83,18 @@ app.get("/", (req, res) => {
       }
     );
 });
+
+const getDataFromRecord = function (record) {
+  return {
+    id: record.get("id"),
+    extensions: {
+      resumeLastUpdate: record.get("time"),
+      resumeTime: record.get("secondsFromStart"),
+      progress: record.get("progress"),
+      resumeCompleted: false,
+    },
+  };
+};
 
 app.post("/", (req, res) => {
   const dataReceived = req.body;
