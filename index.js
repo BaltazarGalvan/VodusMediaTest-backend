@@ -66,7 +66,7 @@ const dataArray = [];
 app.get("/", (req, res) => {
   const dataRequested = req.query;
   console.log(dataRequested.ctx);
-
+  const retrievedRecords = [];
   airtableDataBase("Continue Watching")
     .select({
       maxRecords: 20,
@@ -83,11 +83,16 @@ app.get("/", (req, res) => {
     .eachPage(
       function page(records, fetchNextPage) {
         records.forEach(function (record) {
-          console.log(
-            record.get("userIdentifier"),
-            record.get("time"),
-            record.get("secondsFromStart")
-          );
+          const dataRecordRetraieved = {
+            id: record.get("id"),
+            extensions: {
+              resumeLastUpdate: record.get("time"),
+              resumeTime: record.get("secondsFromStart"),
+              progress: record.get("progress"),
+              resumeCompleted: false,
+            },
+          };
+          retrievedRecords.push(dataRecordRetraieved);
         });
         fetchNextPage();
       },
@@ -116,7 +121,8 @@ app.get("/", (req, res) => {
   });
   const dataToReturn = { entry: videoArray };
   res.send(dataToReturn);*/
-  res.send(dataArray);
+  console.log(retrievedRecords);
+  res.send(retrievedRecords);
 });
 
 app.post("/", (req, res) => {
