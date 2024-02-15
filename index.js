@@ -68,11 +68,26 @@ app.get("/", (req, res) => {
   console.log(dataRequested.ctx);
 
   airtableDataBase("Continue Watching")
-    .select({ maxRecords: 20, view: "Grid view" })
+    .select({
+      maxRecords: 20,
+      view: "Grid view",
+      fields: [
+        "userIdentifier",
+        "id",
+        "time",
+        "secondsFromStart",
+        "progress",
+        "status",
+      ],
+    })
     .eachPage(
       function page(records, fetchNextPage) {
         records.forEach(function (record) {
-          console.log(record.get("userIdentifier"));
+          console.log(
+            record.get("userIdentifier"),
+            record.get("time"),
+            record.get("secondsFromStart")
+          );
         });
         fetchNextPage();
       },
