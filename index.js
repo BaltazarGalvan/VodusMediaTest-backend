@@ -42,13 +42,11 @@ app.post("/", (req, res) => {
   const dataReceived = req.body;
 
   if (
-    dataReceived.data.status !== "VIDEO_STOPPED" &&
-    dataReceived.data.status !== "COMPLETED"
-  ) {
-    return;
-  }
+    dataReceived.data.status === "VIDEO_STOPPED" ||
+    dataReceived.data.status === "COMPLETED"
+  )
+    dataArray.push(dataReceived);
 
-  dataArray.push(dataReceived);
   console.log(dataArray);
   res.send(dataArray);
 });
