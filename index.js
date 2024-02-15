@@ -72,7 +72,7 @@ app.get("/", (req, res) => {
     .eachPage(
       function page(records, fetchNextPage) {
         records.forEach(function (record) {
-          console.log(record.get({ fields: ["useridentifier", "progress"] }));
+          console.log(record.get("userIdentifier"));
         });
         fetchNextPage();
       },
