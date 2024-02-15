@@ -94,6 +94,7 @@ app.get("/", (req, res) => {
           };
           console.log(dataRecordRetraieved);
           retrievedRecords.push(dataRecordRetraieved);
+          console.log("array", retrievedRecords);
         });
         fetchNextPage();
       },
