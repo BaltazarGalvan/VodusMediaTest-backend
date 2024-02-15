@@ -105,7 +105,6 @@ app.get("/", (req, res) => {
         res.send({ entry: retrievedRecords });
       }
     );
-  res.send(retrievedRecords);
 });
 
 app.post("/", (req, res) => {
