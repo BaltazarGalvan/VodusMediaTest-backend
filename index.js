@@ -38,6 +38,7 @@ lo que debe entregar en el get
 
 */
 
+const Airtable = require("airtable");
 const dotenv = require("dotenv");
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -45,6 +46,14 @@ const bodyParser = require("body-parser");
 const app = express();
 
 dotenv.config();
+
+Airtable.configure({
+  endpointUrl: "https://api.airtable.com",
+  apiKey:
+    "patlgy4Vt9pGjbfQJ.d37527a72d91386f21f786570631e3c5f0981de7d5109ca2c6d50cb914f5385d",
+});
+
+const airtableDataBase = Airtable.base("app0UxcUWwRrDRDva");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -57,6 +66,23 @@ const dataArray = [];
 app.get("/", (req, res) => {
   const dataRequested = req.query;
   console.log(dataRequested.ctx);
+
+  airtableDataBase("Continue Watching")
+    .select({ maxRecords: 20, view: "Grid view" })
+    .eachPage(
+      function page(records, fetchNextPage) {
+        records.forEach(function (record) {
+          console.log(record.get({ fields: ["useridentifier", "progress"] }));
+        });
+        fetchNextPage();
+      },
+      function done(err) {
+        if (err) {
+          console.error(err);
+          return;
+        }
+      }
+    );
 
   /* dataArray.forEach((x) => console.log(x));
   const dataFiltered = dataArray.filter(
