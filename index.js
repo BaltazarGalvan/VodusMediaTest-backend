@@ -45,14 +45,14 @@ const port = process.env.PORT || 5000;
 const dataArray = [];
 
 app.get("/", (req, res) => {
-  const dataRequested = req.query;
+  const dataRequested = "{userIdentifier} = '" + req.query + "'";
   console.log(dataRequested.ctx);
   const retrievedRecords = [];
   const selectedParameters = {
     maxRecords: 20,
     view: "Grid view",
     fields: ["id", "time", "secondsFromStart", "progress"],
-    filterByFormula: "{userIdentifier} = dataRequested.ctx",
+    filterByFormula: dataRequested,
   };
   airtableDataBase("Continue Watching")
     .select(selectedParameters)
