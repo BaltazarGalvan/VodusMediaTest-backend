@@ -17,26 +17,7 @@
     "subject": "Watched video segment 0 progress: 0 vbZk3Cv3",
     "time": "2024-02-14T17:42:20Z",
     "type": "com.applicaster.video.started.v1"
-}
-
-lo que debe entregar en el get
-
-{
-  "entry": [
-    {
-      "id": "296bed86-11dc-43c3-9aaf-bfb25600ad2a", // the unique id of the video
-      "extensions": {
-          "resumeLastUpdate": <TIMESTAMP>
-          "resumeTime": "<Number of seconds from the beginning of the video from which playback should start when playing this item>",
-          "progress": 0.43 // number between 0 - 1 indecating the progress of the fed
-          "resumeCompleted": true // When set to true, the app will use this info to remove the video from the list
-        }
-      }
-    }, {...}, {...}
-  ]
-}
-
-*/
+}*/
 
 const Airtable = require("airtable");
 const dotenv = require("dotenv");
@@ -67,19 +48,14 @@ app.get("/", (req, res) => {
   const dataRequested = req.query;
   console.log(dataRequested.ctx);
   const retrievedRecords = [];
+  const selectedParameters = {
+    maxRecords: 20,
+    view: "Grid view",
+    fields: ["id", "time", "secondsFromStart", "progress"],
+    filterByFormula: "{userIdentifier} = {dataRequested.ctx}",
+  };
   airtableDataBase("Continue Watching")
-    .select({
-      maxRecords: 20,
-      view: "Grid view",
-      fields: [
-        "userIdentifier",
-        "id",
-        "time",
-        "secondsFromStart",
-        "progress",
-        "status",
-      ],
-    })
+    .select(selectedParameters)
     .eachPage(
       function page(records, fetchNextPage) {
         records.forEach(function (record) {
