@@ -46,7 +46,7 @@ const dataArray = [];
 
 app.get("/", (req, res) => {
   const dataRequested = "{userIdentifier} = '" + req.query + "'";
-  console.log(dataRequested.ctx);
+  console.log(dataRequested);
   const retrievedRecords = [];
   const selectedParameters = {
     maxRecords: 20,
