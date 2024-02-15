@@ -48,28 +48,20 @@ app.get("/", (req, res) => {
   const dataRequested = "{userIdentifier} = '" + req.query.ctx + "'";
   console.log(dataRequested);
   const retrievedRecords = [];
-  const selectedParameters = {
+  const filterParameters = {
     maxRecords: 20,
     view: "Grid view",
-    fields: ["id", "time", "secondsFromStart", "progress"],
+    fields: ["eventId", "time", "secondsFromStart", "progress"],
     filterByFormula: dataRequested,
   };
   airtableDataBase("Continue Watching")
-    .select(selectedParameters)
+    .select(filterParameters)
     .eachPage(
       function page(records, fetchNextPage) {
         records.forEach(function (record) {
-          const dataRecordRetraieved = getDataFromRecord(record);
-          // {
-          //   id: record.get("id"),
-          //   extensions: {
-          //     resumeLastUpdate: record.get("time"),
-          //     resumeTime: record.get("secondsFromStart"),
-          //     progress: record.get("progress"),
-          //     resumeCompleted: false,
-          //   },
-          // };
-          retrievedRecords.push(dataRecordRetraieved);
+          // const dataRecordRetraieved = getDataFromRecord(record);
+          // retrievedRecords.push(dataRecordRetraieved);
+          retrievedRecords.push(getDataFromRecord(record));
         });
         fetchNextPage();
       },
@@ -84,18 +76,6 @@ app.get("/", (req, res) => {
     );
 });
 
-const getDataFromRecord = function (record) {
-  return {
-    id: record.get("id"),
-    extensions: {
-      resumeLastUpdate: record.get("time"),
-      resumeTime: record.get("secondsFromStart"),
-      progress: record.get("progress"),
-      resumeCompleted: false,
-    },
-  };
-};
-
 app.post("/", (req, res) => {
   const dataReceived = req.body;
 
@@ -108,13 +88,23 @@ app.post("/", (req, res) => {
   console.log(dataArray);
   res.send('""');
   res.status(201).end();
-  // res.send(dataArray);
 });
 
 app.listen(port, () => {
   console.log(`Server running on port: ${port}/`);
 });
 
+const getDataFromRecord = function (record) {
+  return {
+    id: record.get("eventId"),
+    extensions: {
+      resumeLastUpdate: record.get("time"),
+      resumeTime: record.get("secondsFromStart"),
+      progress: record.get("progress"),
+      resumeCompleted: false,
+    },
+  };
+};
 // solo con node js
 
 // const http = require("http");
