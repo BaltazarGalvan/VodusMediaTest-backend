@@ -92,9 +92,7 @@ app.get("/", (req, res) => {
               resumeCompleted: false,
             },
           };
-          console.log(dataRecordRetraieved);
           retrievedRecords.push(dataRecordRetraieved);
-          console.log("array", retrievedRecords);
         });
         fetchNextPage();
       },
@@ -103,6 +101,7 @@ app.get("/", (req, res) => {
           console.error(err);
           return;
         }
+        console.log("Dentro del done", retrievedRecords);
       }
     );
 
@@ -123,7 +122,7 @@ app.get("/", (req, res) => {
   });
   const dataToReturn = { entry: videoArray };
   res.send(dataToReturn);*/
-  console.log(retrievedRecords);
+  console.log("Fuera del done", retrievedRecords);
   res.send(retrievedRecords);
 });
 
