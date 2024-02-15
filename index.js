@@ -59,9 +59,8 @@ app.get("/", (req, res) => {
     .eachPage(
       function page(records, fetchNextPage) {
         records.forEach(function (record) {
-          // const dataRecordRetraieved = getDataFromRecord(record);
-          // retrievedRecords.push(dataRecordRetraieved);
           retrievedRecords.push(getDataFromRecord(record));
+          console.log(record.id);
         });
         fetchNextPage();
       },
