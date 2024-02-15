@@ -52,7 +52,7 @@ app.get("/", (req, res) => {
     maxRecords: 20,
     view: "Grid view",
     fields: ["id", "time", "secondsFromStart", "progress"],
-    filterByFormula: "{userIdentifier} = {dataRequested.ctx}",
+    filterByFormula: "{userIdentifier} = dataRequested.ctx",
   };
   airtableDataBase("Continue Watching")
     .select(selectedParameters)
