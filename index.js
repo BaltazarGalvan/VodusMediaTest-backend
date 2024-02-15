@@ -92,6 +92,7 @@ app.get("/", (req, res) => {
               resumeCompleted: false,
             },
           };
+          console.log(dataRecordRetraieved);
           retrievedRecords.push(dataRecordRetraieved);
         });
         fetchNextPage();
