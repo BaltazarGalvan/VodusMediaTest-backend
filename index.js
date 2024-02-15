@@ -45,7 +45,7 @@ const port = process.env.PORT || 5000;
 const dataArray = [];
 
 app.get("/", (req, res) => {
-  const dataRequested = "{userIdentifier} = '" + req.query + "'";
+  const dataRequested = "{userIdentifier} = '" + req.query.ctx + "'";
   console.log(dataRequested);
   const retrievedRecords = [];
   const selectedParameters = {
