@@ -77,6 +77,7 @@ const dataArray = [];
 app.get("/", (req, res) => {
   console.log(req);
   res.send({});
+  
 }
 
 
