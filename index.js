@@ -23,6 +23,7 @@ const Airtable = require("airtable");
 const dotenv = require("dotenv");
 const express = require("express");
 const bodyParser = require("body-parser");
+const { SlowBuffer } = require("buffer");
 
 const app = express();
 
@@ -44,34 +45,40 @@ const port = process.env.PORT || 5000;
 
 const dataArray = [];
 
+// app.get("/", (req, res) => {
+//   const dataRequested = "{userIdentifier} = '" + req.query.ctx + "'";
+//   const retrievedRecords = [];
+//   const filterParameters = {
+//     maxRecords: 20,
+//     view: "Grid view",
+//     fields: ["eventId", "time", "secondsFromStart", "progress"],
+//     filterByFormula: dataRequested,
+//   };
+//   airtableDataBase("Continue Watching")
+//     .select(filterParameters)
+//     .eachPage(
+//       function page(records, fetchNextPage) {
+//         records.forEach(function (record) {
+//           retrievedRecords.push(getDataFromRecord(record));
+//           console.log(record.id);
+//         });
+//         fetchNextPage();
+//       },
+//       function done(err) {
+//         if (err) {
+//           console.error(err);
+//           return;
+//         }
+//         res.send({ entry: retrievedRecords });
+//       }
+//     );
+// });
+
 app.get("/", (req, res) => {
-  const dataRequested = "{userIdentifier} = '" + req.query.ctx + "'";
-  const retrievedRecords = [];
-  const filterParameters = {
-    maxRecords: 20,
-    view: "Grid view",
-    fields: ["eventId", "time", "secondsFromStart", "progress"],
-    filterByFormula: dataRequested,
-  };
-  airtableDataBase("Continue Watching")
-    .select(filterParameters)
-    .eachPage(
-      function page(records, fetchNextPage) {
-        records.forEach(function (record) {
-          retrievedRecords.push(getDataFromRecord(record));
-          console.log(record.id);
-        });
-        fetchNextPage();
-      },
-      function done(err) {
-        if (err) {
-          console.error(err);
-          return;
-        }
-        res.send({ entry: retrievedRecords });
-      }
-    );
-});
+  console.log(req);
+  res.send({});
+}
+
 
 app.post("/", (req, res) => {
   const dataReceived = req.body;
