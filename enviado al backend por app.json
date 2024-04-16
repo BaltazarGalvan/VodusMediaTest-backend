@@ -249,7 +249,7 @@
       host: 'vodusmediatest-backend.onrender.com',
       'user-agent': 'Roku/DVP-12.5 (12.5.5.4174-50)',
       'content-length': '1021',
-      accept: 'application/json',
+      accept: 'appli1cation/json',
       'accept-encoding': 'gzip',
       'cdn-loop': 'cloudflare; subreqs=1',
       'cf-connecting-ip': '187.191.37.168',

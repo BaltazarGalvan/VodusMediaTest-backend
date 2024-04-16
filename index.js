@@ -77,9 +77,7 @@ const dataArray = [];
 app.get("/", (req, res) => {
   console.log(req);
   res.send({});
-  
-}
-
+});
 
 app.post("/", (req, res) => {
   const dataReceived = req.body;
