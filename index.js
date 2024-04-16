@@ -46,7 +46,6 @@ const dataArray = [];
 
 app.get("/", (req, res) => {
   const dataRequested = "{userIdentifier} = '" + req.query.ctx + "'";
-  console.log(dataRequested);
   const retrievedRecords = [];
   const filterParameters = {
     maxRecords: 20,
@@ -69,7 +68,6 @@ app.get("/", (req, res) => {
           console.error(err);
           return;
         }
-        console.log("Dentro del done", retrievedRecords);
         res.send({ entry: retrievedRecords });
       }
     );
@@ -84,7 +82,7 @@ app.post("/", (req, res) => {
   )
     dataArray.push(dataReceived);
 
-  console.log(dataArray);
+  console.log(req);
   res.send('""');
   res.status(201).end();
 });
