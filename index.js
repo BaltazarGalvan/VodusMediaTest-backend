@@ -75,7 +75,7 @@ const dataArray = [];
 // });
 
 app.get("/", (req, res) => {
-  console.log(req);
+  console.log(req.query);
   res.send({});
 });
 
