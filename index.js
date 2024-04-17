@@ -88,7 +88,7 @@ app.post("/", (req, res) => {
   )
     dataArray.push(dataReceived);
 
-  console.log(req.body.data.userIdentifier);
+  console.log(req.body);
   res.send('""');
   res.status(201).end();
 });
