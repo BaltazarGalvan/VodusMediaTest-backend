@@ -89,7 +89,7 @@ app.post("/", (req, res) => {
   )
     dataArray.push(dataReceived);
 
-  console.log(req.body);
+  console.log(req);
   res.send('""');
   res.status(201).end();
 });
