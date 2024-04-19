@@ -81,13 +81,13 @@ app.get("/", (req, res) => {
 });
 
 app.post("/", (req, res) => {
-  const dataReceived = req.body;
+  // const dataReceived = req.body;
 
-  if (
-    dataReceived.data.status === "VIDEO_STOPPED" ||
-    dataReceived.data.status === "COMPLETED"
-  )
-    dataArray.push(dataReceived);
+  // if (
+  //   dataReceived.data.status === "VIDEO_STOPPED" ||
+  //   dataReceived.data.status === "COMPLETED"
+  // )
+  //   dataArray.push(dataReceived);
 
   console.log(req);
   res.send('""');
