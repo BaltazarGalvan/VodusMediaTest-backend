@@ -89,7 +89,7 @@ app.post("/", (req, res) => {
   // )
   //   dataArray.push(dataReceived);
 
-  console.log("Post "+req.query.ctx);
+  console.log(req.subject+req.query.ctx);
   res.send({"specversion": "1.0","type": "com.applicaster.event.received.v1","source": "Vodus Server","subject": "Event  Stopped was successfully received","id": "ID_EVENT","time": "Ahora"});
   //res.send(req.params);
   res.status(201).end();
