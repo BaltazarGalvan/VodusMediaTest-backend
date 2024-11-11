@@ -90,7 +90,7 @@ app.post("/", (req, res) => {
   //   dataArray.push(dataReceived);
 
   console.log(req.body);
-  res.send('""');
+  res.send('"Recibido"');
   res.status(201).end();
 });
 
