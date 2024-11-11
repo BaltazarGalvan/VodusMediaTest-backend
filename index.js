@@ -80,7 +80,7 @@ app.get("/", (req, res) => {
   res.send({});
 });
 
-app.post("/:id", (req, res) => {
+app.post("/", (req, res) => {
   // const dataReceived = req.body;
 
   // if (
@@ -89,7 +89,7 @@ app.post("/:id", (req, res) => {
   // )
   //   dataArray.push(dataReceived);
 
-  console.log("Got It"+req.params.id);
+  console.log("Got It"+req.params);
   //res.send({"specversion": "1.0","type": "com.applicaster.event.received.v1","source": "Vodus Server","subject": "Event  Stopped was successfully received","id": "ID_EVENT","time": "Ahora"});
   res.send(req.params);
     res.status(201).end();
