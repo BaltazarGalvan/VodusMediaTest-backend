@@ -88,8 +88,26 @@ app.post("/", (req, res) => {
   //   dataReceived.data.status === "COMPLETED"
   // )
   //   dataArray.push(dataReceived);
+/* lo que llega desde las apps
+{
+    "data": {
+      "progress": 0,
+      "secondsFromStart": " 0",
+      "sessionStartAt": 0,
+      "status": "VIDEO_STARTED",
+      "userIdentifier": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImp0aSI6ImQxOGZkZDc3LTIzMzgtNGEwNi1iMjZhLTk4ZGVjNTNiOTI2NCJ9.eyJhdWQiOiIxNWI2ODE4YS0wYTA2LTRjM2EtOThiYi0xYjNmMzY2ZjllZGIiLCJqdGkiOiJkMThmZGQ3Ny0yMzM4LTRhMDYtYjI2YS05OGRlYzUzYjkyNjQiLCJpYXQiOjE3MDc5Mjg5MjMsIm5iZiI6MTcwNzkyODkyMywiZXhwIjoxNzEwNTI0NTIzLCJzdWIiOiJiX2dhbHZhbkB5YWhvby5jb20iLCJzY29wZXMiOltdLCJtaWQiOjQzOTg2NTIsImFpZCI6MTEzMTM4ODEsIm11aSI6IjE1YjY4MThhLTBhMDYtNGMzYS05OGJiLTFiM2YzNjZmOWVkYiIsImN0eCI6WyJjb25zdW1lciJdLCJ0aWQiOjExMzEzODgxLCJ0dXVpZCI6ImQxOGZkZDc3LTIzMzgtNGEwNi1iMjZhLTk4ZGVjNTNiOTI2NCIsIm9pZCI6MH0.hiZ0HmwgV6NGa-uMIq4RSHX1Ox3QvuYH0NqM3YdXj0c",
+      "videoId": "vbZk3Cv3"
+    },
+    "datacontenttype": "application/json",
+    "id": "01d4540f-895c-4ed5-922c-eb9a174fbcf0",
+    "source": "kanalddrama://com.appkanalddrama/versions/3.0.6",
+    "specversion": "1.0",
+    "subject": "Watched video segment 0 progress: 0 vbZk3Cv3",
+    "time": "2024-02-14T17:42:20Z",
+    "type": "com.applicaster.video.started.v1"
+}*/
 
-  console.log(req.query.ctx+" "+req.body.datacontenttype);
+  console.log(req.query.ctx+" "+req.body.datacontenttype+" "+req.body.subject+" "+req.body.data.userIdentifier);
   res.send({"specversion": "1.0","type": "com.applicaster.event.received.v1","source": "Vodus Server","subject": "Event  Stopped was successfully received","id": "ID_EVENT","time": "Ahora"});
   //res.send(req.params);
   res.status(201).end();
