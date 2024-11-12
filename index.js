@@ -128,7 +128,8 @@ app.post("/", (req, res) => {
         resumeTime: req.body.data.secondsFromStart,
         progress: req.body.data.progress,
         resumeCompleted: false,
-        title: "Title extensions"
+        showTitle: "Title extensions",
+        Episode_Number: "002"
         },
     };
 
