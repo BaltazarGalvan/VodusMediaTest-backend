@@ -114,10 +114,9 @@ app.post("/", (req, res) => {
         subject: "Event " + req.body.data.status + " was successfully received.",
         id: req.body.id,
         time: req.body.time
-        }
     };
     /*   req.body.data.status === "COMPLETED"*/
-    if (req.body.data.status === "VIDEO_STOPPED" ){ 
+    if (req.body.data.status === "VIDEO_STOPPED"){ 
         dataArray.push(dataReceived);
         console.log("Agregado.");
     }
