@@ -115,7 +115,7 @@ app.get("/", (req, res) => {
   console.log("ctx: "+ req.query.ctx);
     console.log(dataToReturn);
   // console.log(atob(req.query));
-  res.send({});
+  res.send(dataToReturn);
 });
 
 app.post("/", (req, res) => {
