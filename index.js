@@ -90,8 +90,30 @@ const dataArray = [];
 //     );
 // });
 
+
+/* lo que debe entregar
+{
+  "entry": [
+    {
+      "id": "296bed86-11dc-43c3-9aaf-bfb25600ad2a", // the unique id of the video
+      "extensions": {
+          "resumeLastUpdate": <TIMESTAMP>
+          "resumeTime": "<Number of seconds from the beginning of the video from which playback should start when playing this item>",
+          "progress": 0.43 // number between 0 - 1 indecating the progress of the fed
+          "resumeCompleted": true // When set to true, the app will use this info to remove the video from the list
+        }
+      }
+  ]
+}
+
+*/
+
 app.get("/", (req, res) => {
-  console.log("get "+ req.query);
+    const dataToReturn = {
+        entry: dataArray
+    };
+  console.log("ctx: "+ req.query.ctx);
+    console.log(dataToReturn);
   // console.log(atob(req.query));
   res.send({});
 });
