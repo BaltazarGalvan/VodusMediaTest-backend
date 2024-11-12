@@ -112,10 +112,11 @@ app.get("/", (req, res) => {
     const dataToReturn = {
         entry: dataArray
     };
-  console.log("ctx: "+ req.query.ctx);
+    console.log("ctx: "+ req.query.ctx);
     console.log(dataToReturn);
   // console.log(atob(req.query));
-  res.send(dataToReturn);
+    res.send(dataToReturn);
+    res.status(200).end();
 });
 
 app.post("/", (req, res) => {
