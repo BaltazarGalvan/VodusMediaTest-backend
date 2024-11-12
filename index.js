@@ -122,12 +122,13 @@ app.get("/", (req, res) => {
 app.post("/", (req, res) => {
     const dataReceived = {
         id: req.body.data.videoId,
+        title: "Title Root",
         extensions: {
         resumeLastUpdate: req.body.time,
         resumeTime: req.body.data.secondsFromStart,
         progress: req.body.data.progress,
         resumeCompleted: false,
-        title: "Title test"
+        title: "Title extensions"
         },
     };
 
