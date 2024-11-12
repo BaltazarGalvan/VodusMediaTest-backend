@@ -124,7 +124,7 @@ app.post("/", (req, res) => {
   //console.log(req.query.ctx+" "+req.body.datacontenttype+" "+req.body.subject+" "+req.body.data.userIdentifier);
     
   //console.log("VideoID: "+req.body.data.videoId+" status: "+req.body.data.status+" Progress: "+req.body.data.progress+" Userid: "+req.body.data.userIdentifier);
-    console.log(dataReceived);  
+    console.log(dataArray);  
     res.send(dataToReturn);
     res.status(201).end();
 });
