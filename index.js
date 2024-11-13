@@ -143,7 +143,8 @@ app.post("/", async (req, res) => {
             res.status(201).end();
         return;
     }
-      fetch('https://zapp-2112-kanal-d-drama.web.app/jw/media/${req.body.data.videoId}')
+      const url = 'https://zapp-2112-kanal-d-drama.web.app/jw/media/'+req.body.data.videoId;
+      fetch(url)
       .then(response => response.text())
       .then(data => {
             const newData = JSON.parse(data);
