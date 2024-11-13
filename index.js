@@ -129,7 +129,7 @@ app.post("/", async(req, res) => {
         console.log(resultJW.entry[0].extensions.showTitle);
     } catch(error){}
     
-}
+});
 
 /* app.post("/", (req, res) => {
     const dataReceived = {
