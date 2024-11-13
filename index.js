@@ -135,7 +135,7 @@ app.post("/", async (req, res) => {
       response.text();
     })
     .then((data) => {
-      console.log("Your data:", JSON.parse(data));
+      console.log("Your data:", data);
       res.send("listo");
       res.status(201).end();
     })
