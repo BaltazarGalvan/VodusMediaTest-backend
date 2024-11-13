@@ -132,10 +132,10 @@ app.get("/", (req, res) => {
 app.post("/", async (req, res) => {
   fetch("https://zapp-2112-kanal-d-drama.web.app/jw/media/6m2Vqu9I")
     .then((response) => {
-      response.json();
+      response.text();
     })
     .then((data) => {
-      console.log("Your data:", data);
+      console.log("Your data:", JSON.parse(data));
       res.send("listo");
       res.status(201).end();
     })
