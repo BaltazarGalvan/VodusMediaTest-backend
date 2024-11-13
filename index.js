@@ -133,9 +133,30 @@ app.post("/", async (req, res) => {
   fetch('https://zapp-2112-kanal-d-drama.web.app/jw/media/6m2Vqu9I')
   .then(response => response.text())
   .then(data => {
-        console.log('Your data:', data);
         const newData = JSON.parse(data);
-        console.log('New:', newData.entry[0].type)
+        const dataToReturn = {
+            specversion: "1.0",
+            type: "com.applicaster.event.received.v1",
+            source: "VM Backend Server",
+            subject: "Event " + req.body.data.status + " was successfully received.",
+            id: req.body.id,
+            time: req.body.time
+        };
+        const dataReceived = {
+            id: req.body.data.videoId,
+            title: "Title Root",
+            extensions: {
+                resumeLastUpdate: req.body.time,
+                resumeTime: req.body.data.secondsFromStart,
+                progress: req.body.data.progress,
+                resumeCompleted: false,
+                showTitle: newData.entry[0].extensions.showTitle,
+                Episode_Number: newData.entry[0].extensions.Episode_Number
+            },
+        };
+        console.log('Your data:', data);
+        
+        console.log('Received:', dataReceived)
         res.send("listo");
         res.status(201).end();
   })
