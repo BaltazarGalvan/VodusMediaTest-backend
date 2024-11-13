@@ -156,6 +156,10 @@ app.post("/", async (req, res) => {
                 type:newData.entry[0].content.type,
                 src:newData.entry[0].content.src,
             },
+            media_group:[{
+                type:newData.entry[0].media_group[0].type,
+                src:""
+            }],
             extensions: {
                 resumeLastUpdate: req.body.time,
                 resumeTime: req.body.data.secondsFromStart,
