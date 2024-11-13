@@ -144,7 +144,18 @@ app.post("/", async (req, res) => {
         };
         const dataReceived = {
             id: req.body.data.videoId,
-            title: "Title Root",
+            title: newData.title,
+            type:{
+                value:newData.entry[0].type.value,
+            },
+            link:{
+                rel:newData.entry[0].link.rel,
+                href:newData.entry[0].link.href,
+            },
+            content:{
+                type:newData.entry[0].content.type,
+                src:newData.entry[0].content.src,
+            },
             extensions: {
                 resumeLastUpdate: req.body.time,
                 resumeTime: req.body.data.secondsFromStart,
