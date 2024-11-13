@@ -158,7 +158,7 @@ app.post("/", async (req, res) => {
             },
             media_group:[{
                 type:newData.entry[0].media_group[0].type,
-                src:""
+                media_item:newData.entry[0].media_group[0].media_item
             }],
             extensions: {
                 resumeLastUpdate: req.body.time,
