@@ -39,7 +39,7 @@ const Airtable = require("airtable");
 const dotenv = require("dotenv");
 const express = require("express");
 const bodyParser = require("body-parser");
-const fetch = require("node-fetch");
+import fetch from 'node-fetch';
 const { SlowBuffer } = require("buffer");
 
 const app = express();
