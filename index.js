@@ -120,6 +120,17 @@ app.get("/", (req, res) => {
 });
 
 app.post("/", (req, res) => {
+  try{
+        const (responseFromJW) = await fetch("https://zapp-2112-kanal-d-drama.web.app/jw/media/"+req.body.data.videoId
+        /*if (!responseFromJW.ok) {
+              throw new Error("Network response was not OK");
+        }*/
+        const resultJW = await responseFromJW.json();
+        console.log(resultJW);
+    }
+}
+
+/* app.post("/", (req, res) => {
     const dataReceived = {
         id: req.body.data.videoId,
         title: "Title Root",
@@ -141,7 +152,7 @@ app.post("/", (req, res) => {
         id: req.body.id,
         time: req.body.time
     };
-    /*   req.body.data.status === "COMPLETED"*/
+    //   req.body.data.status === "COMPLETED"
     if (req.body.data.status === "VIDEO_STOPPED"){ 
         dataArray.push(dataReceived);
         console.log("Agregado.");
@@ -153,7 +164,7 @@ app.post("/", (req, res) => {
     console.log(dataArray);  
     res.send(dataToReturn);
     res.status(201).end();
-});
+});*/
 
 app.listen(port, () => {
   console.log(`Server running on port: ${port}/`);
