@@ -127,7 +127,8 @@ app.post("/", async(req, res) => {
         }*/
         const resultJW = await responseFromJW.json();
         console.log(resultJW.entry[0].extensions.showTitle);
-    }
+    } catch(error){}
+    
 }
 
 /* app.post("/", (req, res) => {
