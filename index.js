@@ -117,8 +117,8 @@ const dataArray = [];
 */
 
 app.get("/", (req, res) => {
-    const testBody = JSON.stringify(req.body);
-    console.log(testBody);
+    //const testBody = JSON.stringify(req.body);
+    //console.log(testBody);
     const dataToReturn = {
         entry: dataArray
     };
@@ -129,19 +129,21 @@ app.get("/", (req, res) => {
     res.status(200).end();
 });
 
-/*app.post("/", async(req, res) => {
-  try{
+app.post("/", async(req, res) => {
+    fetch('https://zapp-2112-kanal-d-drama.web.app/jw/media/6m2Vqu9I').then(response => response.text()).then(data => console.log('Your data:', data)).catch(error => console.error('Error:', error));
+
+  /*try{
         const responseFromJW = await fetch("https://zapp-2112-kanal-d-drama.web.app/jw/media/6m2Vqu9I");
         if (!responseFromJW.ok) {
               throw new Error("Network response was not OK");
         }
         const resultJW = await responseFromJW.json();
         console.log(resultJW.entry[0].extensions.showTitle);
-    } catch(error){}
+    } catch(error){}*/
     
-});*/
+});
 
-app.post("/", (req, res) => {
+/*app.post("/", (req, res) => {
     const dataReceived = {
         id: req.body.data.videoId,
         title: "Title Root",
@@ -177,7 +179,7 @@ app.post("/", (req, res) => {
     console.log(dataArray);  
     res.send(dataToReturn);
     res.status(201).end();
-});
+});*/
 
 app.listen(port, () => {
   console.log(`Server running on port: ${port}/`);
