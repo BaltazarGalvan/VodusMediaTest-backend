@@ -117,6 +117,8 @@ const dataArray = [];
 */
 
 app.get("/", (req, res) => {
+    const testBody = JSON.stringify(req.body);
+    console.log(testBody);
     const dataToReturn = {
         entry: dataArray
     };
