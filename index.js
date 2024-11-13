@@ -162,7 +162,8 @@ app.post("/", async (req, res) => {
                 progress: req.body.data.progress,
                 resumeCompleted: false,
                 showTitle: newData.entry[0].extensions.showTitle,
-                Episode_Number: newData.entry[0].extensions.Episode_Number
+                Episode_Number: newData.entry[0].extensions.Episode_Number,
+                free: newData.entry[0].extensions.free
             },
         };
         console.log('Your data:', data);
