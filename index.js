@@ -122,9 +122,9 @@ app.get("/", (req, res) => {
 app.post("/", async(req, res) => {
   try{
         const responseFromJW = await fetch("https://zapp-2112-kanal-d-drama.web.app/jw/media/"+req.body.data.videoId);
-        /*if (!responseFromJW.ok) {
+        if (!responseFromJW.ok) {
               throw new Error("Network response was not OK");
-        }*/
+        }
         const resultJW = await responseFromJW.json();
         console.log(resultJW.entry[0].extensions.showTitle);
     } catch(error){}
