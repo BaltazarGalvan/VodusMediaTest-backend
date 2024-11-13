@@ -130,53 +130,55 @@ app.get("/", (req, res) => {
 });
 
 app.post("/", async (req, res) => {
-  fetch('https://zapp-2112-kanal-d-drama.web.app/jw/media/6m2Vqu9I')
-  .then(response => response.text())
-  .then(data => {
-        const newData = JSON.parse(data);
-        const dataToReturn = {
-            specversion: "1.0",
-            type: "com.applicaster.event.received.v1",
-            source: "VM Backend Server",
-            subject: "Event " + req.body.data.status + " was successfully received.",
-            id: req.body.id,
-            time: req.body.time
-        };
-        const dataReceived = {
-            id: req.body.data.videoId,
-            title: newData.title,
-            type:{
-                value:newData.entry[0].type.value,
-            },
-            link:{
-                rel:newData.entry[0].link.rel,
-                href:newData.entry[0].link.href,
-            },
-            content:{
-                type:newData.entry[0].content.type,
-                src:newData.entry[0].content.src,
-            },
-            media_group:[{
-                type:newData.entry[0].media_group[0].type,
-                media_item:newData.entry[0].media_group[0].media_item
-            }],
-            extensions: {
-                resumeLastUpdate: req.body.time,
-                resumeTime: req.body.data.secondsFromStart,
-                progress: req.body.data.progress,
-                resumeCompleted: false,
-                showTitle: newData.entry[0].extensions.showTitle,
-                Episode_Number: newData.entry[0].extensions.Episode_Number,
-                free: newData.entry[0].extensions.free
-            },
-        };
-        console.log('Your data:', data);
+      if (req.body.data.status !== "VIDEO_STOPPED")
+          return();    
+      fetch('https://zapp-2112-kanal-d-drama.web.app/jw/media/6m2Vqu9I')
+      .then(response => response.text())
+      .then(data => {
+            const newData = JSON.parse(data);
+            const dataToReturn = {
+                specversion: "1.0",
+                type: "com.applicaster.event.received.v1",
+                source: "VM Backend Server",
+                subject: "Event " + req.body.data.status + " was successfully received.",
+                id: req.body.id,
+                time: req.body.time
+            };
+            const dataReceived = {
+                id: req.body.data.videoId,
+                title: newData.title,
+                type:{
+                    value:newData.entry[0].type.value,
+                },
+                link:{
+                    rel:newData.entry[0].link.rel,
+                    href:newData.entry[0].link.href,
+                },
+                content:{
+                    type:newData.entry[0].content.type,
+                    src:newData.entry[0].content.src,
+                },
+                media_group:[{
+                    type:newData.entry[0].media_group[0].type,
+                    media_item:newData.entry[0].media_group[0].media_item
+                }],
+                extensions: {
+                    resumeLastUpdate: req.body.time,
+                    resumeTime: req.body.data.secondsFromStart,
+                    progress: req.body.data.progress,
+                    resumeCompleted: false,
+                    showTitle: newData.entry[0].extensions.showTitle,
+                    Episode_Number: newData.entry[0].extensions.Episode_Number,
+                    free: newData.entry[0].extensions.free
+                },
+            };
+            console.log('Your data:', data);
         
-        console.log('Received:', dataReceived.media_group[0].media_item);
-        res.send("listo");
-        res.status(201).end();
-  })
-  .catch(error => console.error('Error:', error));
+            console.log('Received:', dataReceived.media_group[0].media_item);
+            res.send(dataToReturn);
+            res.status(201).end();
+      })
+      .catch(error => console.error('Error:', error));
 });
 
 /*app.post("/", (req, res) => {
