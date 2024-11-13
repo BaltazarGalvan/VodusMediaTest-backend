@@ -172,7 +172,7 @@ app.post("/", async (req, res) => {
         };
         console.log('Your data:', data);
         
-        console.log('Received:', dataReceived)
+        console.log('Received:', dataReceived.media_group[0].media_item);
         res.send("listo");
         res.status(201).end();
   })
