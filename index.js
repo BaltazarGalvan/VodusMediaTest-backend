@@ -39,12 +39,14 @@
 //const dotenv = require("dotenv");
 //const express = require("express");
 //const bodyParser = require("body-parser");
+//const { SlowBuffer } = require("buffer");
+
 import dotenv from 'dotenv';
 import express from 'express';
 import bodyParser from 'body-parser';
 import fetch from 'node-fetch';
+import { SlowBuffer } from 'buffer';
 
-const { SlowBuffer } = require("buffer");
 
 const app = express();
 
