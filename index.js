@@ -130,20 +130,23 @@ app.get("/", (req, res) => {
 });
 
 app.post("/", async (req, res) => {
-    if (req.body.data.status !== "VIDEO_STOPPED")
-        return;
-      fetch('https://zapp-2112-kanal-d-drama.web.app/jw/media/6m2Vqu9I')
-      .then(response => response.text())
-      .then(data => {
-            const newData = JSON.parse(data);
-            const dataToReturn = {
+    const dataToReturn = {
                 specversion: "1.0",
                 type: "com.applicaster.event.received.v1",
                 source: "VM Backend Server",
                 subject: "Event " + req.body.data.status + " was successfully received.",
                 id: req.body.id,
                 time: req.body.time
-            };
+    };
+    if (req.body.data.status !== "VIDEO_STOPPED"){
+        res.send(dataToReturn);
+            res.status(201).end();
+        return;
+    }
+      fetch('https://zapp-2112-kanal-d-drama.web.app/jw/media/6m2Vqu9I')
+      .then(response => response.text())
+      .then(data => {
+            const newData = JSON.parse(data);
             const dataReceived = {
                 id: req.body.data.videoId,
                 title: newData.title,
