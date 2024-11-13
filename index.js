@@ -161,7 +161,7 @@ app.post("/", (req, res) => {
         id: req.body.id,
         time: req.body.time
     };
-    const testBody = JSON(stringify(req.body));
+    const testBody = JSON.stringify(req.body);
     console.log(testBody);
     //   req.body.data.status === "COMPLETED"
     if (req.body.data.status === "VIDEO_STOPPED"){ 
