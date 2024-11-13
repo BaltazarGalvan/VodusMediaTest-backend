@@ -130,17 +130,7 @@ app.get("/", (req, res) => {
 });
 
 app.post("/", async(req, res) => {
-    fetch('https://zapp-2112-kanal-d-drama.web.app/jw/media/6m2Vqu9I').then(response => response.text()).then(data => console.log('Your data:', data)).catch(error => console.error('Error:', error));
-
-  /*try{
-        const responseFromJW = await fetch("https://zapp-2112-kanal-d-drama.web.app/jw/media/6m2Vqu9I");
-        if (!responseFromJW.ok) {
-              throw new Error("Network response was not OK");
-        }
-        const resultJW = await responseFromJW.json();
-        console.log(resultJW.entry[0].extensions.showTitle);
-    } catch(error){}*/
-    
+    fetch('https://zapp-2112-kanal-d-drama.web.app/jw/media/6m2Vqu9I').then(response => response.text()).then(data => {console.log('Your data:', data);res.send("listo"); res.status(201).end();}).catch(error => console.error('Error:', error));    
 });
 
 /*app.post("/", (req, res) => {
