@@ -58,6 +58,8 @@ app.use(bodyParser.json());
 const hostname = "127.0.0.1";
 const port = process.env.PORT || 5000;
 
+const zappURL = "https://zapp-2112-kanal-d-drama.web.app/jw/media/";
+
 const dataArray = [];
 
 // app.get("/", (req, res) => {
@@ -121,7 +123,7 @@ app.post("/", async (req, res) => {
         res.status(201).end();
         return;
     }
-      const url = 'https://zapp-2112-kanal-d-drama.web.app/jw/media/'+req.body.data.videoId;
+      const url = zappURL + req.body.data.videoId;
       fetch(url)
       .then(response => response.text())
       .then(data => {
@@ -135,7 +137,7 @@ app.post("/", async (req, res) => {
             dataReceived.extensions.resumeLastUpdate = req.body.time;
             dataReceived.extensions.resumeTime = req.body.data.secondsFromStart;
             dataReceived.extensions.progress = req.body.data.progress;
-            dataReceived.extensions.resumeCompleted = false;
+            dataReceived.extensions.resumeCompleted = (req.body.data.progress === 1 ? true:false);
             console.log('Received:', dataReceived.media_group[0].media_item);
             dataArray.push(dataReceived);
             res.send(dataToReturn);
@@ -152,7 +154,7 @@ app.listen(port, () => {
   console.log(`Server running on port: ${port}/`);
 });
 
-const getDataFromRecord = function (record) {
+/*const getDataFromRecord = function (record) {
   return {
     id: record.get("eventId"),
     extensions: {
@@ -162,4 +164,4 @@ const getDataFromRecord = function (record) {
       resumeCompleted: false,
     },
   };
-};
+};*/
