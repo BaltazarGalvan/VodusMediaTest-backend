@@ -142,7 +142,7 @@ app.post("/", async (req, res) => {
             dataReceived.extensions.resumeCompleted = (req.body.data.progress === 1 ? true:false);
             dataArray.push(dataReceived);
           
-            const userRecord = usersArray.findIndex((userRecord)=> userRecord.id ===idUser); 
+            const userRecord = usersArray.findIndex((userRecord)=> userRecord.id === userId); 
                 //si el usuario no existe
               if(userRecord < 0){
                 const userInfo = {
