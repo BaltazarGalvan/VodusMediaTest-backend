@@ -106,7 +106,15 @@ app.get("/", (req, res) => {
 });
 
 app.get("/test",(req,res)=>{
-    res.send(usersArray);
+    const userId = req.query.ctx;
+    const dataToReturn = {};
+    const userRecord = usersArray.find((userRecord)=> userRecord.id ===userId)
+    if (!userRecord){
+        dataToReturn.entry = [];
+    }else{
+        dataToReturn.entry = userRecord.records;
+    }
+    res.send(dataToReturn);
     res.status(200).end();
 });
 
@@ -151,7 +159,7 @@ app.post("/", async (req, res) => {
                 };
                 usersArray.push(userInfo);
               }else{
-                  userArray[userRecord].records.push(dataArray);
+                  usersArray[userRecord].records.push(dataArray);
               }
           
             res.send(dataToReturn);
