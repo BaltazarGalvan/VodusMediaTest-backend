@@ -148,6 +148,10 @@ app.post("/", async (req, res) => {
       .then(response => response.text())
       .then(data => {
             const newData = JSON.parse(data);
+            if (newData.hasOwnProperty('statusCode')){
+                if(newData.statusCode === 500)
+                    throw new Error('something terrible happened');
+            }
             console.log(newData);
             const dataReceived = newData.entry[0];
             dataReceived.extensions.resumeLastUpdate = req.body.time;
