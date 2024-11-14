@@ -61,7 +61,6 @@ const port = process.env.PORT || 5000;
 const zappURL = "https://zapp-2112-kanal-d-drama.web.app/jw/media/";
 
 const usersArray = [];
-const dataArray = [];
 
 // app.get("/", (req, res) => {
 //   const dataRequested = "{userIdentifier} = '" + req.query.ctx + "'";
@@ -149,7 +148,6 @@ app.post("/", async (req, res) => {
             dataReceived.extensions.resumeTime = req.body.data.secondsFromStart;
             dataReceived.extensions.progress = req.body.data.progress;
             dataReceived.extensions.resumeCompleted = (req.body.data.progress === 1 ? true:false);
-            dataArray.push(dataReceived);
 
             const userRecord = findUser(userId, false);
             //const userRecord = usersArray.findIndex((userRecord)=> userRecord.id === userId); 
