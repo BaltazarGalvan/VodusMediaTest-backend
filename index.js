@@ -194,8 +194,8 @@ app.post("/", async (req, res) => {
       })
       .catch(error => {
           console.log('Error:', error);
-          res.send(error.message);
-          res.status(error.statusCode).end();
+          //res.send(error.message);
+          res.status(error.statusCode).send(error.message).end();
       });
 });
 
