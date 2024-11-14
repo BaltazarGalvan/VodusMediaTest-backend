@@ -140,7 +140,6 @@ app.post("/", async (req, res) => {
             dataReceived.extensions.resumeTime = req.body.data.secondsFromStart;
             dataReceived.extensions.progress = req.body.data.progress;
             dataReceived.extensions.resumeCompleted = (req.body.data.progress === 1 ? true:false);
-            console.log('Received:', dataReceived.media_group[0].media_item);
             dataArray.push(dataReceived);
 
             //si el usuario no existe
