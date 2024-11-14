@@ -131,8 +131,8 @@ app.get("/", (req, res) => {
 
 app.post("/", async (req, res) => {
     const dataToReturn = {
-                specversion: "1.0",
-                type: "com.applicaster.event.received.v1",
+                specversion: req.body.specversion,
+                type: req.body.type,
                 source: "VM Backend Server",
                 subject: "Event " + req.body.data.status + " was successfully received.",
                 id: req.body.id,
@@ -140,7 +140,7 @@ app.post("/", async (req, res) => {
     };
     if (req.body.data.status !== "VIDEO_STOPPED"){
         res.send(dataToReturn);
-            res.status(201).end();
+        res.status(201).end();
         return;
     }
       const url = 'https://zapp-2112-kanal-d-drama.web.app/jw/media/'+req.body.data.videoId;
@@ -148,7 +148,8 @@ app.post("/", async (req, res) => {
       .then(response => response.text())
       .then(data => {
             const newData = JSON.parse(data);
-            const dataReceived = {
+            const dataReceived = newData.entry[0];
+            /*const dataReceived = {
                 id: req.body.data.videoId,
                 title: newData.title,
                 type:{
@@ -175,7 +176,7 @@ app.post("/", async (req, res) => {
                     Episode_Number: newData.entry[0].extensions.Episode_Number,
                     free: newData.entry[0].extensions.free
                 },
-            };
+            };*/
             console.log('Your data:', data);
             console.log('Received:', dataReceived.media_group[0].media_item);
             dataArray.push(dataReceived);
