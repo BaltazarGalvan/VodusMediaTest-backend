@@ -1,29 +1,27 @@
-/* airtable patlgy4Vt9pGjbfQJ.d37527a72d91386f21f786570631e3c5f0981de7d5109ca2c6d50cb914f5385d */
-
 /* lo que llega desde las apps
 {
     "data": {
       "progress": 0,
       "secondsFromStart": " 0",
       "sessionStartAt": 0,
-      "status": "VIDEO_STARTED",
-      "userIdentifier": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImp0aSI6ImQxOGZkZDc3LTIzMzgtNGEwNi1iMjZhLTk4ZGVjNTNiOTI2NCJ9.eyJhdWQiOiIxNWI2ODE4YS0wYTA2LTRjM2EtOThiYi0xYjNmMzY2ZjllZGIiLCJqdGkiOiJkMThmZGQ3Ny0yMzM4LTRhMDYtYjI2YS05OGRlYzUzYjkyNjQiLCJpYXQiOjE3MDc5Mjg5MjMsIm5iZiI6MTcwNzkyODkyMywiZXhwIjoxNzEwNTI0NTIzLCJzdWIiOiJiX2dhbHZhbkB5YWhvby5jb20iLCJzY29wZXMiOltdLCJtaWQiOjQzOTg2NTIsImFpZCI6MTEzMTM4ODEsIm11aSI6IjE1YjY4MThhLTBhMDYtNGMzYS05OGJiLTFiM2YzNjZmOWVkYiIsImN0eCI6WyJjb25zdW1lciJdLCJ0aWQiOjExMzEzODgxLCJ0dXVpZCI6ImQxOGZkZDc3LTIzMzgtNGEwNi1iMjZhLTk4ZGVjNTNiOTI2NCIsIm9pZCI6MH0.hiZ0HmwgV6NGa-uMIq4RSHX1Ox3QvuYH0NqM3YdXj0c",
-      "videoId": "vbZk3Cv3"
+      "status": "xxxxxxx",
+      "userIdentifier": "xxxxxxxxxxxxxxxxxxx",
+      "videoId": "xxxxxx"
     },
-    "datacontenttype": "application/json",
-    "id": "01d4540f-895c-4ed5-922c-eb9a174fbcf0",
-    "source": "kanalddrama://com.appkanalddrama/versions/3.0.6",
-    "specversion": "1.0",
-    "subject": "Watched video segment 0 progress: 0 vbZk3Cv3",
+    "datacontenttype": "xxxxxxx",
+    "id": "xxxxxx",
+    "source": "xxxxxxxx",
+    "specversion": "xxx",
+    "subject": "xxxxxxxx",
     "time": "2024-02-14T17:42:20Z",
-    "type": "com.applicaster.video.started.v1"
+    "type": "xxxxxx"
 }*/
 
 /* lo que debe entregar el Get
 {
   "entry": [
     {
-      "id": "296bed86-11dc-43c3-9aaf-bfb25600ad2a", // the unique id of the video
+      "id": "xxxxxxx", // the unique id of the video
       "extensions": {
           "resumeLastUpdate": <TIMESTAMP>
           "resumeTime": "<Number of seconds from the beginning of the video from which playback should start when playing this item>",
@@ -53,13 +51,6 @@ const app = express();
 
 dotenv.config();
 
-Airtable.configure({
-  endpointUrl: "https://api.airtable.com",
-  apiKey:
-    "patlgy4Vt9pGjbfQJ.d37527a72d91386f21f786570631e3c5f0981de7d5109ca2c6d50cb914f5385d",
-});
-
-const airtableDataBase = Airtable.base("app0UxcUWwRrDRDva");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -102,6 +93,7 @@ const dataArray = [];
 app.get("/", (req, res) => {
     //const testBody = JSON.stringify(req.body);
     //console.log(testBody);
+    console.log('GetRoot');
     const dataToReturn = {
         entry: dataArray
     };
