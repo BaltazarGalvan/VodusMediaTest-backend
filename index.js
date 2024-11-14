@@ -93,22 +93,23 @@ const dataArray = [];
 // });
 
 
-app.get("/", (req, res) => {
+app.get("/all_records", (req, res) => {
     //const testBody = JSON.stringify(req.body);
     //console.log(testBody);
     console.log('GetRoot');
     const dataToReturn = {
-        entry: dataArray
+        entry: usersArray
     };
     //console.log("ctx: "+ req.query.ctx);
     res.send(dataToReturn);
     res.status(200).end();
 });
 
-app.get("/test",(req,res)=>{
+app.get("/",(req,res)=>{
     const userId = req.query.ctx;
     const dataToReturn = {};
-    const userRecord = usersArray.find((userRecord)=> userRecord.id ===userId)
+    // const userRecord = usersArray.find((userRecord)=> userRecord.id ===userId)
+    const userRecord = findUser(userId, true);
     if (!userRecord){
         dataToReturn.entry = [];
     }else{
@@ -149,8 +150,9 @@ app.post("/", async (req, res) => {
             dataReceived.extensions.progress = req.body.data.progress;
             dataReceived.extensions.resumeCompleted = (req.body.data.progress === 1 ? true:false);
             dataArray.push(dataReceived);
-          
-            const userRecord = usersArray.findIndex((userRecord)=> userRecord.id === userId); 
+
+            const userRecord = findUser(userId, false);
+            //const userRecord = usersArray.findIndex((userRecord)=> userRecord.id === userId); 
                 //si el usuario no existe
               if(userRecord < 0){
                 const userInfo = {
@@ -177,7 +179,9 @@ app.listen(port, () => {
   console.log(`Server running on port: ${port}/`);
 });
 
-const findUser = function (idUser){
+const findUser = function (idUser, findRecords){
+    if (findRecords)
+        return(usersArray.find((userRecord)=> userRecord.id ===idUser));
     return(usersArray.findIndex((userRecord)=> userRecord.id ===idUser));
 };
 
