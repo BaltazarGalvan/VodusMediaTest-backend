@@ -60,6 +60,7 @@ const port = process.env.PORT || 5000;
 
 const zappURL = "https://zapp-2112-kanal-d-drama.web.app/jw/media/";
 
+const usersArray = [];
 const dataArray = [];
 
 // app.get("/", (req, res) => {
@@ -132,7 +133,8 @@ app.post("/", async (req, res) => {
                 if(newData.statusCode === 500)
                     throw new Error(newData.message);
             }
-            console.log(newData);
+            console.log("Stopped Event received");
+            const userId = req.body.data.userIdentifier;
             const dataReceived = newData.entry[0];
             dataReceived.extensions.resumeLastUpdate = req.body.time;
             dataReceived.extensions.resumeTime = req.body.data.secondsFromStart;
@@ -140,6 +142,15 @@ app.post("/", async (req, res) => {
             dataReceived.extensions.resumeCompleted = (req.body.data.progress === 1 ? true:false);
             console.log('Received:', dataReceived.media_group[0].media_item);
             dataArray.push(dataReceived);
+
+            //si el usuario no existe
+            const userInfo = {
+                id: userId,
+                records: dataArray
+            };
+
+            usersArray.push(userInfo);
+          
             res.send(dataToReturn);
             res.status(201).end();
       })
