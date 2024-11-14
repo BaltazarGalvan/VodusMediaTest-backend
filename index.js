@@ -106,7 +106,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/test",(req,res)=>{
-    res.send("desde /test");
+    res.send(usersArray);
     res.status(200).end();
 });
 
