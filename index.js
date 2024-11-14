@@ -150,7 +150,7 @@ app.post("/", async (req, res) => {
             const newData = JSON.parse(data);
             if (newData.hasOwnProperty('statusCode')){
                 if(newData.statusCode === 500)
-                    throw new Error(newData.message, newData.statusCode);
+                    throw new Error(newData.message);
             }
             console.log(newData);
             const dataReceived = newData.entry[0];
@@ -193,8 +193,8 @@ app.post("/", async (req, res) => {
             res.status(201).end();
       })
       .catch(error => {
-          console.log('Error:', error);
-          res.send(error.statusCode);
+          //console.log('Error:', error);
+          res.send(error);
           res.status(500).end();
       });
 });
