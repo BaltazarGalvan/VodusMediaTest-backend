@@ -151,7 +151,7 @@ app.post("/", async (req, res) => {
                 };
                 usersArray.push(userInfo);
               }else{
-                  userArray.records.push(dataArray);
+                  userArray[userRecord].records.push(dataArray);
               }
           
             res.send(dataToReturn);
