@@ -102,6 +102,11 @@ app.get("/", (req, res) => {
     res.status(200).end();
 });
 
+app.get("/test",(req,res)=>{
+    res.send("desde /test");
+    res.status(200).end();
+});
+
 app.post("/", async (req, res) => {
     const dataToReturn = {
                 specversion: req.body.specversion,
