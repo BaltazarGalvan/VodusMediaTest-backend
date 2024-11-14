@@ -155,11 +155,12 @@ app.post("/", async (req, res) => {
               if(userRecord < 0){
                 const userInfo = {
                     id: userId,
-                    records: dataArray
+                    records: []
                 };
+                userInfo.records.push(dataReceived);
                 usersArray.push(userInfo);
               }else{
-                  usersArray[userRecord].records.push(dataArray);
+                  usersArray[userRecord].records.push(dataReceived);
               }
           
             res.send(dataToReturn);
