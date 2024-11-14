@@ -19,7 +19,7 @@
     "type": "com.applicaster.video.started.v1"
 }*/
 
-/* lo que debe entregar
+/* lo que debe entregar el Get
 {
   "entry": [
     {
@@ -99,32 +99,13 @@ const dataArray = [];
 // });
 
 
-/* lo que debe entregar
-{
-  "entry": [
-    {
-      "id": "296bed86-11dc-43c3-9aaf-bfb25600ad2a", // the unique id of the video
-      "extensions": {
-          "resumeLastUpdate": <TIMESTAMP>
-          "resumeTime": "<Number of seconds from the beginning of the video from which playback should start when playing this item>",
-          "progress": 0.43 // number between 0 - 1 indecating the progress of the fed
-          "resumeCompleted": true // When set to true, the app will use this info to remove the video from the list
-        }
-      }
-  ]
-}
-
-*/
-
 app.get("/", (req, res) => {
     //const testBody = JSON.stringify(req.body);
     //console.log(testBody);
     const dataToReturn = {
         entry: dataArray
     };
-    console.log("ctx: "+ req.query.ctx);
-    console.log(dataToReturn);
-  // console.log(atob(req.query));
+    //console.log("ctx: "+ req.query.ctx);
     res.send(dataToReturn);
     res.status(200).end();
 });
@@ -158,35 +139,6 @@ app.post("/", async (req, res) => {
             dataReceived.extensions.resumeTime = req.body.data.secondsFromStart;
             dataReceived.extensions.progress = req.body.data.progress;
             dataReceived.extensions.resumeCompleted = false;
-            /*const dataReceived = {
-                id: req.body.data.videoId,
-                title: newData.title,
-                type:{
-                    value:newData.entry[0].type.value,
-                },
-                link:{
-                    rel:newData.entry[0].link.rel,
-                    href:newData.entry[0].link.href,
-                },
-                content:{
-                    type:newData.entry[0].content.type,
-                    src:newData.entry[0].content.src,
-                },
-                media_group:[{
-                    type:newData.entry[0].media_group[0].type,
-                    media_item:newData.entry[0].media_group[0].media_item
-                }],
-                extensions: {
-                    resumeLastUpdate: req.body.time,
-                    resumeTime: req.body.data.secondsFromStart,
-                    progress: req.body.data.progress,
-                    resumeCompleted: false,
-                    showTitle: newData.entry[0].extensions.showTitle,
-                    Episode_Number: newData.entry[0].extensions.Episode_Number,
-                    free: newData.entry[0].extensions.free
-                },
-            };*/
-            console.log('Your data:', data);
             console.log('Received:', dataReceived.media_group[0].media_item);
             dataArray.push(dataReceived);
             res.send(dataToReturn);
@@ -198,44 +150,6 @@ app.post("/", async (req, res) => {
           res.status(500).end();
       });
 });
-
-/*app.post("/", (req, res) => {
-    const dataReceived = {
-        id: req.body.data.videoId,
-        title: "Title Root",
-        extensions: {
-        resumeLastUpdate: req.body.time,
-        resumeTime: req.body.data.secondsFromStart,
-        progress: req.body.data.progress,
-        resumeCompleted: false,
-        showTitle: "Title extensions",
-        Episode_Number: "002"
-        },
-    };
-
-    const dataToReturn = {
-        specversion: "1.0",
-        type: "com.applicaster.event.received.v1",
-        source: "VM Backend Server",
-        subject: "Event " + req.body.data.status + " was successfully received.",
-        id: req.body.id,
-        time: req.body.time
-    };
-    const testBody = JSON.stringify(req.body);
-    console.log(testBody);
-    //   req.body.data.status === "COMPLETED"
-    if (req.body.data.status === "VIDEO_STOPPED"){ 
-        dataArray.push(dataReceived);
-        console.log("Agregado.");
-    }
-
-  //console.log(req.query.ctx+" "+req.body.datacontenttype+" "+req.body.subject+" "+req.body.data.userIdentifier);
-    
-  //console.log("VideoID: "+req.body.data.videoId+" status: "+req.body.data.status+" Progress: "+req.body.data.progress+" Userid: "+req.body.data.userIdentifier);
-    console.log(dataArray);  
-    res.send(dataToReturn);
-    res.status(201).end();
-});*/
 
 app.listen(port, () => {
   console.log(`Server running on port: ${port}/`);
@@ -252,16 +166,3 @@ const getDataFromRecord = function (record) {
     },
   };
 };
-// solo con node js
-
-// const http = require("http");
-
-// const server = http.createServer((req, res) => {
-//   res.statusCode = 200;
-//   res.setHeader("Content-Type", "text/plain");
-//   res.end("Hello World\n");
-// });
-
-// server.listen(port, hostname, () => {
-//   console.log(`Server running at http://${hostname}:${port}/`);
-// });
