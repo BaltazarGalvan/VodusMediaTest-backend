@@ -95,7 +95,7 @@ const usersArray = [];
 app.get("/all_records", (req, res) => {
     //const testBody = JSON.stringify(req.body);
     //console.log(testBody);
-    console.log('GetRoot');
+    console.log('GetAll_records');
     const dataToReturn = {
         entry: usersArray
     };
@@ -105,6 +105,7 @@ app.get("/all_records", (req, res) => {
 });
 
 app.get("/",(req,res)=>{
+    console.log('GetRoot');
     const userId = req.query.ctx;
     const dataToReturn = {};
     // const userRecord = usersArray.find((userRecord)=> userRecord.id ===userId)
@@ -114,6 +115,7 @@ app.get("/",(req,res)=>{
     }else{
         dataToReturn.entry = userRecord.records;
     }
+    console.log(dataToReturn);
     res.send(dataToReturn);
     res.status(200).end();
 });
