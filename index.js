@@ -105,7 +105,7 @@ app.get("/all_records", (req, res) => {
 });
 
 app.get("/",(req,res)=>{
-    console.log('GetRoot ', req.query.ctx, "body ", JSON.stringify(req.body));
+    console.log('GetRoot ', req.query.ctx, "body ", JSON.stringify(req));
     const userId = req.query.ctx;
     const dataToReturn = {};
     // const userRecord = usersArray.find((userRecord)=> userRecord.id ===userId)
