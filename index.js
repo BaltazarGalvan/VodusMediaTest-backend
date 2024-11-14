@@ -141,14 +141,18 @@ app.post("/", async (req, res) => {
             dataReceived.extensions.progress = req.body.data.progress;
             dataReceived.extensions.resumeCompleted = (req.body.data.progress === 1 ? true:false);
             dataArray.push(dataReceived);
-
-            //si el usuario no existe
-            const userInfo = {
-                id: userId,
-                records: dataArray
-            };
-
-            usersArray.push(userInfo);
+          
+            const userRecord = findUser(userId); 
+                //si el usuario no existe
+              if(userRecord < 0){
+                const userInfo = {
+                    id: userId,
+                    records: dataArray
+                };
+                usersArray.push(userInfo);
+              }else{
+                  userArray.records.push(dataArray);
+              }
           
             res.send(dataToReturn);
             res.status(201).end();
@@ -163,6 +167,10 @@ app.post("/", async (req, res) => {
 app.listen(port, () => {
   console.log(`Server running on port: ${port}/`);
 });
+
+const findUser = function (idUser){
+    return(usersArray.findIndex((userRecord)=> userRecord.id ===idUser));
+};
 
 /*const getDataFromRecord = function (record) {
   return {
