@@ -149,6 +149,8 @@ app.post("/", async (req, res) => {
       .then(data => {
             const newData = JSON.parse(data);
             const dataReceived = newData.entry[0];
+            dataReceived.extensions.resumeLastUpdate = req.body.time;
+            
             /*const dataReceived = {
                 id: req.body.data.videoId,
                 title: newData.title,
