@@ -60,7 +60,10 @@ const port = process.env.PORT || 5000;
 
 const zappURL = "https://zapp-2112-kanal-d-drama.web.app/jw/media/";
 
+const filterByUser = true;
 const usersArray = [];
+
+const dataArray = [];
 
 // app.get("/", (req, res) => {
 //   const dataRequested = "{userIdentifier} = '" + req.query.ctx + "'";
@@ -110,14 +113,24 @@ app.get("/",(req,res)=>{
     const userId = req.query.ctx;
     const dataToReturn = {};
     // const userRecord = usersArray.find((userRecord)=> userRecord.id ===userId)
-    const userRecord = findUser(userId, true);
-    if (!userRecord){
-        dataToReturn.entry = [];
+    if(filterByUser){
+        const userRecord = findUser(userId, true);
+        if (!userRecord){
+            dataToReturn.entry = [];
+        }else{
+            dataToReturn.entry = userRecord.records;
+        }
     }else{
-        dataToReturn.entry = userRecord.records;
+        dataToReturn.entry = dataArray;
     }
     console.log(dataToReturn);
     res.send(dataToReturn);
+    res.status(200).end();
+});
+
+app.post("/filtr_by_user", (req,res) =>{
+    filterByUser = !filterByUser;
+    res.send(filterByUser);
     res.status(200).end();
 });
 
@@ -151,20 +164,20 @@ app.post("/", async (req, res) => {
             dataReceived.extensions.resumeTime = req.body.data.secondsFromStart;
             dataReceived.extensions.progress = req.body.data.progress;
             dataReceived.extensions.resumeCompleted = (req.body.data.progress === 1 ? true:false);
-
+            dataArray.push(dataReceived);
             const userRecord = findUser(userId, false);
             //const userRecord = usersArray.findIndex((userRecord)=> userRecord.id === userId); 
                 //si el usuario no existe
-              if(userRecord < 0){
+            if(userRecord < 0){
                 const userInfo = {
                     id: userId,
                     records: []
                 };
                 userInfo.records.push(dataReceived);
                 usersArray.push(userInfo);
-              }else{
+            }else{
                   usersArray[userRecord].records.push(dataReceived);
-              }
+            }
           
             res.send(dataToReturn);
             res.status(201).end();
