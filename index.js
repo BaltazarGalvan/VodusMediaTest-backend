@@ -167,8 +167,9 @@ app.post("/", async (req, res) => {
             dataArray.push(dataReceived);
             const userRecord = findUser(userId, false);
             //const userRecord = usersArray.findIndex((userRecord)=> userRecord.id === userId); 
-                //si el usuario no existe
-            if(userRecord < 0){
+            
+            if(userRecord < 0){  
+                //si el userId no existe
                 const userInfo = {
                     id: userId,
                     records: []
@@ -176,7 +177,8 @@ app.post("/", async (req, res) => {
                 userInfo.records.push(dataReceived);
                 usersArray.push(userInfo);
             }else{
-                  usersArray[userRecord].records.push(dataReceived);
+                // si el userId existe
+                usersArray[userRecord].records.push(dataReceived);
             }
           
             res.send(dataToReturn);
