@@ -60,7 +60,7 @@ const port = process.env.PORT || 5000;
 
 const zappURL = "https://zapp-2112-kanal-d-drama.web.app/jw/media/";
 
-const filterByUser = true;
+let filterByUser = true;
 const usersArray = [];
 
 const dataArray = [];
@@ -128,7 +128,7 @@ app.get("/",(req,res)=>{
     res.status(200).end();
 });
 
-app.post("/filtr_by_user", (req,res) =>{
+app.post("/filter_by_user", (req,res) =>{
     filterByUser = !filterByUser;
     res.send(filterByUser);
     res.status(200).end();
