@@ -39,18 +39,16 @@
 //const bodyParser = require("body-parser");
 //const { SlowBuffer } = require("buffer");
 
-import Airtable from 'airtable';
-import dotenv from 'dotenv';
-import express from 'express';
-import bodyParser from 'body-parser';
-import fetch from 'node-fetch';
-import { SlowBuffer } from 'buffer';
-
+import Airtable from "airtable";
+import dotenv from "dotenv";
+import express from "express";
+import bodyParser from "body-parser";
+import fetch from "node-fetch";
+import { SlowBuffer } from "buffer";
 
 const app = express();
 
 dotenv.config();
-
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -58,12 +56,12 @@ app.use(bodyParser.json());
 const hostname = "127.0.0.1";
 const port = process.env.PORT || 5000;
 
-const zappURL = "https://zapp-2112-kanal-d-drama.web.app/jw/media/";
+const zappURL = "https://zapp-2112-kanal-d-drama.web.app/jw/media/"; // https://zapp-2112-kanal-drama.web zapp middleware for getting media information
 
-let filterByUser = true;
-const usersArray = [];
+let filterByUser = true; // this is used to return records by user or all registered records
+const usersArray = []; // this stores the information received from the apps grouped by user
 
-const dataArray = [];
+const dataArray = []; // this stores the information received from the apps not grouped by user
 
 // app.get("/", (req, res) => {
 //   const dataRequested = "{userIdentifier} = '" + req.query.ctx + "'";
@@ -94,111 +92,126 @@ const dataArray = [];
 //     );
 // });
 
-
 app.get("/all_records", (req, res) => {
-    //const testBody = JSON.stringify(req.body);
-    //console.log(testBody);
-    console.log('GetAll_records');
-    const dataToReturn = {
-        entry: usersArray
-    };
-    //console.log("ctx: "+ req.query.ctx);
-    res.send(dataToReturn);
-    res.status(200).end();
+  // returns all records send by the apps
+  //const testBody = JSON.stringify(req.body);
+  //console.log(testBody);
+  console.log("GetAll_records");
+  const dataToReturn = {
+    entry: usersArray,
+  };
+  //console.log("ctx: "+ req.query.ctx);
+  res.send(dataToReturn);
+  res.status(200).end();
 });
 
-app.get("/",(req,res)=>{
-    console.log('GetRoot ', JSON.stringify(req.query), "body ", JSON.stringify(req.body), "params ", JSON.stringify(req.params), "Authorization ", JSON.stringify(req.authorization), "Headers ", JSON.stringify(req.headers));
-    //console.log('GetRoot ', req.query.ctx, "body ", JSON.stringify(req));
-    const userId = req.query.ctx;
-    const dataToReturn = {};
-    // const userRecord = usersArray.find((userRecord)=> userRecord.id ===userId)
-    if(filterByUser){
-        const userRecord = findUser(userId, true);
-        if (!userRecord){
-            dataToReturn.entry = [];
-        }else{
-            dataToReturn.entry = userRecord.records;
-        }
-    }else{
-        dataToReturn.entry = dataArray;
+app.get("/", (req, res) => {
+  // returns all records send by the apps depending on the filterByUser value: true = by user, false = all records
+  console.log(
+    "GetRoot ",
+    JSON.stringify(req.query),
+    "body ",
+    JSON.stringify(req.body),
+    "params ",
+    JSON.stringify(req.params),
+    "Authorization ",
+    JSON.stringify(req.authorization),
+    "Headers ",
+    JSON.stringify(req.headers)
+  );
+  //console.log('GetRoot ', req.query.ctx, "body ", JSON.stringify(req));
+  const userId = req.query.ctx;
+  const dataToReturn = {};
+  // const userRecord = usersArray.find((userRecord)=> userRecord.id ===userId)
+  if (filterByUser) {
+    const userRecord = findUser(userId, true);
+    if (!userRecord) {
+      dataToReturn.entry = [];
+    } else {
+      dataToReturn.entry = userRecord.records;
     }
-    console.log(dataToReturn);
-    res.send(dataToReturn);
-    res.status(200).end();
+  } else {
+    dataToReturn.entry = dataArray;
+  }
+  console.log(dataToReturn);
+  res.send(dataToReturn);
+  res.status(200).end();
 });
 
-app.post("/filter_by_user", (req,res) =>{
-    filterByUser = !filterByUser;
-    res.send(filterByUser);
-    res.status(200).end();
+app.post("/filter_by_user", (req, res) => {
+  // when called, filterByUser is changed
+  filterByUser = !filterByUser;
+  res.send(filterByUser);
+  res.status(200).end();
 });
 
 app.post("/", async (req, res) => {
-    const dataToReturn = {
-                specversion: req.body.specversion,
-                type: req.body.type,
-                source: "VM Backend Server",
-                subject: "Event " + req.body.data.status + " was successfully received.",
-                id: req.body.id,
-                time: req.body.time
-    };
-    if (req.body.data.status !== "VIDEO_STOPPED"){
-        res.send(dataToReturn);
-        res.status(201).end();
-        return;
-    }
-      const url = zappURL + req.body.data.videoId;
-      fetch(url)
-      .then(response => response.text())
-      .then(data => {
-            const newData = JSON.parse(data);
-            if (newData.hasOwnProperty('statusCode')){
-                if(newData.statusCode === 500)
-                    throw new Error(newData.message);
-            }
-            console.log("Stopped Event received");
-            const userId = req.body.data.userIdentifier;
-            const dataReceived = newData.entry[0];
-            dataReceived.extensions.resumeLastUpdate = req.body.time;
-            dataReceived.extensions.resumeTime = req.body.data.secondsFromStart;
-            dataReceived.extensions.progress = req.body.data.progress;
-            dataReceived.extensions.resumeCompleted = (req.body.data.progress === 1 ? true:false);
-            dataArray.push(dataReceived);
-            const userRecord = findUser(userId, false);
-            //const userRecord = usersArray.findIndex((userRecord)=> userRecord.id === userId); 
-            
-            if(userRecord < 0){  
-                //si el userId no existe
-                const userInfo = {
-                    id: userId,
-                    records: []
-                };
-                userInfo.records.push(dataReceived);
-                usersArray.push(userInfo);
-            }else{
-                // si el userId existe
-                usersArray[userRecord].records.push(dataReceived);
-            }
-          
-            res.send(dataToReturn);
-            res.status(201).end();
-      })
-      .catch(error => {
-          //console.log('Error:', error);
-          res.send(error.message);
-          res.status(500).end();
-      });
+  // registers the records to the array
+  const dataToReturn = {
+    specversion: req.body.specversion,
+    type: req.body.type,
+    source: "VM Backend Server",
+    subject: "Event " + req.body.data.status + " was successfully received.",
+    id: req.body.id,
+    time: req.body.time,
+  };
+  if (req.body.data.status !== "VIDEO_STOPPED") {
+    res.send(dataToReturn);
+    res.status(201).end();
+    return;
+  }
+  const url = zappURL + req.body.data.videoId;
+  fetch(url)
+    .then((response) => response.text())
+    .then((data) => {
+      const newData = JSON.parse(data);
+      if (newData.hasOwnProperty("statusCode")) {
+        if (newData.statusCode === 500) throw new Error(newData.message);
+      }
+      console.log("Stopped Event received");
+      const userId = req.body.data.userIdentifier;
+      const dataReceived = newData.entry[0];
+      dataReceived.extensions.resumeLastUpdate = req.body.time;
+      dataReceived.extensions.resumeTime = req.body.data.secondsFromStart;
+      dataReceived.extensions.progress = req.body.data.progress;
+      dataReceived.extensions.resumeCompleted =
+        req.body.data.progress === 1 ? true : false;
+      dataArray.push(dataReceived);
+      const userRecord = findUser(userId, false);
+      //const userRecord = usersArray.findIndex((userRecord)=> userRecord.id === userId);
+
+      if (userRecord < 0) {
+        //si el userId no existe
+        const userInfo = {
+          id: userId,
+          records: [],
+        };
+        userInfo.records.push(dataReceived);
+        usersArray.push(userInfo);
+      } else {
+        // si el userId existe
+        usersArray[userRecord].records.push(dataReceived);
+      }
+
+      res.send(dataToReturn);
+      res.status(201).end();
+    })
+    .catch((error) => {
+      //console.log('Error:', error);
+      res.send(error.message);
+      res.status(500).end();
+    });
 });
 
 app.listen(port, () => {
   console.log(`Server running on port: ${port}/`);
 });
 
-const findUser = function (idUser, findRecords){
-    if (findRecords)
-        return(usersArray.find((userRecord)=> userRecord.id ===idUser));
-    return(usersArray.findIndex((userRecord)=> userRecord.id ===idUser));
+const findUser = function (idUser, findRecords) {
+  // if findRecords is true, returns records related to the user, if not, returns the index of the user.
+  if (findRecords)
+    return usersArray.find((userRecord) => userRecord.id === idUser);
+  return usersArray.findIndex((userRecord) => userRecord.id === idUser);
 };
 
 /*const getDataFromRecord = function (record) {
