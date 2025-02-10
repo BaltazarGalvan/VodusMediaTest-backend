@@ -120,10 +120,10 @@ app.get("/", (req, res) => {
     JSON.stringify(req.headers)
   );
   //console.log('GetRoot ', req.query.ctx, "body ", JSON.stringify(req));
-  const userId = req.query.ctx;
-  const dataToReturn = {};
+  /*const userId = req.query.ctx;
+  /*const dataToReturn = {};
   // const userRecord = usersArray.find((userRecord)=> userRecord.id ===userId)
-  if (filterByUser) {
+  /*if (filterByUser) {
     const userRecord = findUser(userId, true);
     if (!userRecord) {
       dataToReturn.entry = [];
@@ -133,7 +133,8 @@ app.get("/", (req, res) => {
   } else {
     dataToReturn.entry = dataArray;
   }
-  console.log(dataToReturn);
+  console.log(dataToReturn);*/
+  dataToReturn.entry = [];
   res.send(dataToReturn);
   res.status(200).end();
 });
