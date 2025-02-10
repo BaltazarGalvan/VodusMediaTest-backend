@@ -105,7 +105,7 @@ app.get("/all_records", (req, res) => {
   res.status(200).end();
 });
 
-app.get("/", (req, res) => {
+app.get("/products", (req, res) => {
   // returns all records send by the apps depending on the filterByUser value: true = by user, false = all records
   console.log(
     "GetRoot ",
