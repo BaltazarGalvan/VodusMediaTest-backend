@@ -134,6 +134,7 @@ app.get("/products", (req, res) => {
     dataToReturn.entry = dataArray;
   }
   console.log(dataToReturn);*/
+    const dataToReturn = {};
   dataToReturn.entry = [];
   res.send(dataToReturn);
   res.status(200).end();
