@@ -105,6 +105,45 @@ app.get("/all_records", (req, res) => {
   res.status(200).end();
 });
 
+
+app.post("/event", (req, res) => {
+  // returns all records send by the apps depending on the filterByUser value: true = by user, false = all records
+  console.log("New ",
+    "GetRoot ",
+    JSON.stringify(req.query),
+    "body ",
+    JSON.stringify(req.body),
+    "params ",
+    JSON.stringify(req.params),
+    "Authorization ",
+    JSON.stringify(req.authorization),
+    "Headers ",
+    JSON.stringify(req.headers)
+  );
+  //console.log('GetRoot ', req.query.ctx, "body ", JSON.stringify(req));
+  /*const userId = req.query.ctx;
+  /*const dataToReturn = {};
+  // const userRecord = usersArray.find((userRecord)=> userRecord.id ===userId)
+  /*if (filterByUser) {
+    const userRecord = findUser(userId, true);
+    if (!userRecord) {
+      dataToReturn.entry = [];
+    } else {
+      dataToReturn.entry = userRecord.records;
+    }
+  } else {
+    dataToReturn.entry = dataArray;
+  }
+  console.log(dataToReturn);*/
+    const dataToReturn = {};
+  dataToReturn.entry = [];
+  res.send(dataToReturn);
+  res.status(200).end();
+});
+
+
+
+
 app.get("/products", (req, res) => {
   // returns all records send by the apps depending on the filterByUser value: true = by user, false = all records
   console.log("New ",
