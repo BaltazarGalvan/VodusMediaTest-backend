@@ -23,8 +23,8 @@ const usersArray = []; // this stores the information received from the apps gro
 const dataArray = []; // this stores the information received from the apps not grouped by user
 
 app.post("/event", (req, res) => {
-  
-  /*console.log("New event",
+  console.log("2v2nt");
+  console.log("New event",
     "GetRoot ",
     JSON.stringify(req.query),
     "body ",
@@ -35,8 +35,8 @@ app.post("/event", (req, res) => {
     JSON.stringify(req.authorization),
     "Headers ",
     JSON.stringify(req.headers)
-  );*/
-  console.log("2v2nt");
+  );
+  
   const dataToReturn = {};
   dataToReturn.entry = [];
   res.send(dataToReturn);
