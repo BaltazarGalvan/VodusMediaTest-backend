@@ -108,7 +108,7 @@ app.get("/all_records", (req, res) => {
 
 app.post("/event", (req, res) => {
   // returns all records send by the apps depending on the filterByUser value: true = by user, false = all records
-  console.log("New ",
+  console.log("New event",
     "GetRoot ",
     JSON.stringify(req.query),
     "body ",
