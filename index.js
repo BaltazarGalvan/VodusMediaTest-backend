@@ -49,7 +49,7 @@ app.post("/event", (req, res) => {
 app.get("/products", (req, res) => {
   // returns all records send by the apps depending on the filterByUser value: true = by user, false = all records
   console.log("New query");
-  console.log(req,
+  console.log(
     "GetRoot ",
     JSON.stringify(req.query),
     "body ",
