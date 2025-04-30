@@ -24,7 +24,7 @@ const dataArray = []; // this stores the information received from the apps not 
 
 app.post("/event", (req, res) => {
   console.log("New event");
-  console.log(JSON.stringify(req),
+  console.log(req,
     "GetRoot ",
     JSON.stringify(req.query),
     "body ",
