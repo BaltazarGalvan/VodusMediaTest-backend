@@ -62,7 +62,7 @@ app.get("/products", (req, res) => {
     "Headers ",
     JSON.stringify(req.headers),
     "idToken",
-    idtoken
+    idToken
 
     
   //return JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
