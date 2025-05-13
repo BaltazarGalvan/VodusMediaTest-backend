@@ -47,7 +47,7 @@ app.post("/event", (req, res) => {
 
 
 app.get("/products", (req, res) => {
-  const idToken = req.query;
+  const idToken = JSON.stringify(req.query);
   // returns all records send by the apps depending on the filterByUser value: true = by user, false = all records
   console.log("New query");
   console.log(
