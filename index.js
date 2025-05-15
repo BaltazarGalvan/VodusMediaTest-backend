@@ -48,8 +48,8 @@ app.post("/event", (req, res) => {
 
 app.get("/products", (req, res) => {
   const idToken = JSON.parse(JSON.stringify(req.query));
-  const tokenId = JSON.stringify(idToken.UserIdToken);
-  const payload = JSON.parse(Buffer.from(tokenId.split('.')[1], 'base64').toString());
+  //const tokenId = JSON.stringify(idToken.UserIdToken);
+  //const payload = JSON.parse(Buffer.from(tokenId.split('.')[1], 'base64').toString());
   // returns all records send by the apps depending on the filterByUser value: true = by user, false = all records
   console.log("New query");
   console.log(
