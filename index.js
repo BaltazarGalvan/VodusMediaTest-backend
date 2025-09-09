@@ -38,7 +38,7 @@ app.post("/event", (req, res) => {
     JSON.stringify(req.headers)
   );
  
-  console.log("UserId: ", JSON.stringify(req.body.data.userIdentifier);
+  console.log("UserId: ", JSON.stringify(req.body.data.userIdentifier));
   //const token = requestedBody.data.userIdentifier;
   //console.log(JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString()));
   
