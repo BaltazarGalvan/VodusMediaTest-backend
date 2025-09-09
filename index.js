@@ -36,6 +36,8 @@ app.post("/event", (req, res) => {
     "Headers ",
     JSON.stringify(req.headers)
   );
+  console.log(JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString()));
+  //return JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
   
   const dataToReturn = {};
   dataToReturn.entry = [];
