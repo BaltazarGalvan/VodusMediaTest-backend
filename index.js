@@ -21,6 +21,7 @@ let filterByUser = true; // this is used to return records by user or all regist
 const usersArray = []; // this stores the information received from the apps grouped by user
 
 const dataArray = []; // this stores the information received from the apps not grouped by user
+const requestedBody = JSON.parse(req.body);
 
 app.post("/event", (req, res) => {
   console.log("New event");
@@ -36,7 +37,7 @@ app.post("/event", (req, res) => {
     "Headers ",
     JSON.stringify(req.headers)
   );
-  const requestedBody = JSON.parse(req.body);
+ 
   console.log("UserId: ", requestedBody.data.userIdentifier);
   //const token = requestedBody.data.userIdentifier;
   //console.log(JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString()));
